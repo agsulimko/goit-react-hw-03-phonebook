@@ -8,20 +8,47 @@ import ContactForm from 'components/ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList'
  import Filter from 'components/Filter/Filter';
 
- import initialContacts from './contacts.json';      
+ import contacts from './contacts.json';        
          
       
         
 class App extends Component {
 
   state = {
-    contacts: initialContacts,
+    contacts,
   //  contacts: initialContacts,
     filter: '',
     name: '',
     number: ''
   };
- 
+  componentDidMount() {
+
+    // const contacts = JSON.parse(localStorage.getItem('contacts'));
+    // console.log(contacts);
+    // if (contacts.length <=0 ) {
+    //   this.setState({ contacts:contacts});
+    // }
+  
+    const storedContacts = localStorage.getItem('contacts');
+    console.log(storedContacts);
+    const parsedContacts = JSON.parse(storedContacts);
+    console.log(parsedContacts);
+    console.log(parsedContacts.length);
+
+     if (parsedContacts.length<= 0) return
+     this.setState({ contacts: parsedContacts }) 
+   
+   }
+
+
+   componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      console.log(this.state.contacts);
+      console.log(prevState.contacts);
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   
     createContacts = (dataForm) => {
 		const isAlreadyExist = this.state.contacts.find(
