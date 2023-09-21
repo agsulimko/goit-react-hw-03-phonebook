@@ -106,7 +106,7 @@ class ContactForm extends Component {
                         className={css.input}
                     />
                 </label >
-                <button className={css.btnAdd} type="submit" onClick={this.handleAddContact}>
+                <button className={css.btnAdd} type="submit" >
                     Add contact
                 </button>
             </form>
